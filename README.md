@@ -1,4 +1,4 @@
-# Auto Commit
+# Auto Commit/Push
 
 Make a git commit with a simple command and control the repository version.
 
