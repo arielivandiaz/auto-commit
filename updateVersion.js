@@ -13,37 +13,3 @@ fs.readFile('version.json', 'utf8', function readFileCallback(err, data) {
         }); 
     }
 });
-
-/*
-fs.writeFile("version.json", JSON.stringify(data), function (err) {
-    if (err) throw err;
-    console.log('complete');
-});
-
-/*
-
-const fs = require('fs');
-
-
-const params = require('./version.json');
-
-params.version;
-console.log(params.rev);
-params.rev+=1;
-console.log(params.rev);
-var dev = params.dev;
-
-if(params.dev){
-    
-    console.log("IN DE");
-}else console.log("ON PROD");
-
-console.log("json");
-
-{
-    "dev": false,
-    "version": 1,
-    "rev":0
-
-}
-*/
