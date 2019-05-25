@@ -1,8 +1,8 @@
 #!/bin/sh
 
-node updateVersion.js
-version= cat version.json | jq '.version'
-rev= cat version.json | jq '.rev'
+node /version/updateVersion.js
+version= cat /version/version.json | jq '.version'
+rev= cat /version/version.json | jq '.rev'
 message=$version.$rev
 git status 
 git add -A
