@@ -6,5 +6,5 @@ rev= cat /version/version.json | jq '.rev'
 message=$version.$rev
 git status 
 git add -A
-git commit -m '$message'
+git commit -m '{$message}'
 git push  origin master
