@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# https://github.com/arielivandiaz/auto-commit
 node version/updateVersion.js
 version=$(cat version/version.json | jq '.version')
 rev=$(cat version/version.json | jq '.rev')
