@@ -1,9 +1,9 @@
 #!/bin/sh
 # https://github.com/arielivandiaz/auto-commit
-node version/updateVersion.js
+
+node version/updateVersion.js $1
 version=$(cat version/version.json | jq '.version')
-rev=$(cat version/version.json | jq '.rev')
-message="v"${version}.${rev}
+message="v"${version}
 echo ${message}
 git status 
 git add -A

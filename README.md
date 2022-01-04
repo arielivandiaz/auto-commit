@@ -6,13 +6,32 @@ Make a git commit with a simple command and control the repository version.
 [![Laguna](https://laguna.com.ar/img/label.png)](https://www.laguna.com.ar/)
 
 
+## Files 
+
+The version number will be taken and updated from:
+
+> `version/version.json`
+> `package.json`
+
 ## Run
 
-Just open the command line and type:
+Version syntax : 00.11.22 = [mayor version].[version].[revision]
 
+Update revision
 ```sh
  sh autocommit.sh
 ```
+Update version
+```sh
+ sh autocommit.sh v
+```
+
+Update mayor version
+```sh
+ sh autocommit.sh mv
+```
+
+
 
 
 #### Steps
