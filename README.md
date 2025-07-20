@@ -1,64 +1,67 @@
 # Auto Commit/Push
 
-Make a git commit with a simple command and control the repository version.
-
+Create a Git commit with a simple command and manage the repository version.
 
 [![Laguna](https://laguna.com.ar/img/label.png)](https://www.laguna.com.ar/)
 
+## Version File
 
-## Files 
+The version number is sourced and updated from:
 
-The version number will be taken and updated from:
-
-> `version/version.json`
 > `package.json`
 
-## Run
+## Usage
 
-Version syntax : 00.11.22 = [mayor version].[version].[revision]
+Version syntax: `major.minor.patch` (e.g., `0.11.22`)
 
-Update revision
-```sh
- sh autocommit.sh
-```
-Update version
-```sh
- sh autocommit.sh v
-```
+**Update Patch Version**
 
-Update mayor version
+(Increments the third number, e.g., `2.0.4` -> `2.0.5`)
+
 ```sh
- sh autocommit.sh mv
+# Pushes to the current branch
+sh autocommit.sh
+
+# Pushes to a specific branch (e.g., develop)
+sh autocommit.sh develop
 ```
 
+**Update Minor Version**
 
+(Increments the second number and resets patch to 0, e.g., `2.0.5` -> `2.1.0`)
 
-
-#### Steps
-1. Use node to open the version.json file and update the revision.
-2. See the status of the repository.
-3. Add all files to the repository.
-4. Make a commit by passing the version.revision number as a message.
-5. Push the files to the remote repository in the master branch.
-
-#### Requeriments
-
-  - Node CLI
-  - JQ
-
-
-#### Install JQ
-
-Install JQ on Windows with Choco
 ```sh
- choco install jq
-```
-Install JQ on Linux/Ubuntu
-```sh
- sudo apt-get install jq
+# Pushes to the current branch
+sh autocommit.sh v
+
+# Pushes to a specific branch (e.g., develop)
+sh autocommit.sh v develop
 ```
 
+**Update Major Version**
 
+(Increments the first number and resets minor and patch to 0, e.g., `2.1.0` -> `3.0.0`)
 
-**Autor**
+```sh
+# Pushes to the current branch
+sh autocommit.sh mv
+
+# Pushes to a specific branch (e.g., develop)
+sh autocommit.sh mv develop
+```
+
+## Workflow
+
+1.  **Update Version**: The Node.js script (`version/updateVersion.js`) reads `package.json`, increments the version number based on the command-line argument, and saves the file.
+2.  **Git Status**: Displays the current status of the repository.
+3.  **Stage Files**: Adds all modified files to the staging area (`git add -A`).
+4.  **Commit**: Creates a commit with a message formatted as `v<new_version>` (e.g., `v2.0.5`).
+5.  **Push**: Pushes the commit to the specified branch (or the current branch if none is provided) on the `origin` remote.
+
+## Requirements
+
+*   [Node.js](https://nodejs.org/) and npm
+
+**Author**
+
 [Ariel Ivan Diaz](https://www.arielivandiaz.com/)

@@ -1,64 +1,49 @@
 // https://github.com/arielivandiaz/auto-commit
+const fs = require('fs').promises;
+const path = require('path');
 
-var fs = require('fs');
+// Safely constructs the path to package.json
+const packageJsonPath = path.join(__dirname, '..', 'package.json');
 
-const file_path_1 = 'version/version.json';
-const file_path_2 = 'package.json';
+async function updateVersion() {
+    // Get the command-line argument (mv, v, or none)
+    const arg = process.argv[2];
 
+    try {
+        // Read the package.json file asynchronously
+        const data = await fs.readFile(packageJsonPath, 'utf8');
+        const packageObj = JSON.parse(data);
+        
+        // Split the version into its components and convert them to numbers
+        let [major, minor, patch] = packageObj.version.split('.').map(Number);
 
-
-const myArgs = process.argv.slice(2);
-
-
-if (fs.existsSync(file_path_1)) {
-    fs.readFile(file_path_1, 'utf8', function readFileCallback(err, data) {
-
-        if (err) {
-            console.log(err);
-        } else {
-            let obj = JSON.parse(data);
-            let newVersion = obj.version.split(".");
-
-            if (myArgs[0] == 'mv') {//Update mayor version
-                newVersion[0] = parseInt(newVersion[0]) + 1;
-                newVersion[1] = 0;
-                newVersion[2] = 0;
-            } else if (myArgs[0] == 'v') {//Update version
-                newVersion[1] = parseInt(newVersion[1]) + 1;
-                newVersion[2] = 0;
-            } else //Update revision
-                newVersion[2] = parseInt(newVersion[2]) + 1;
-            obj.version = newVersion[0] + "." + newVersion[1] + "." + newVersion[2];
-            fs.writeFile(file_path_1, JSON.stringify(obj), 'utf8', () => {
-                console.log("Updated version: " + obj.version);
-            });
+        if (arg === 'mv') { // Update major version
+            major++;
+            minor = 0;
+            patch = 0;
+        } else if (arg === 'v') { // Update minor version
+            minor++;
+            patch = 0;
+        } else { // Update patch (revision)
+            patch++;
         }
-    });
-}
-if (fs.existsSync(file_path_2)) {
-    fs.readFile(file_path_2, 'utf8', function readFileCallback(err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            let obj = JSON.parse(data);
-            let newVersion = obj.version.split(".");
-            if (myArgs[0] == 'mv') {//Update mayor version
-                newVersion[0] = parseInt(newVersion[0]) + 1;
-                newVersion[1] = 0;
-                newVersion[2] = 0;
-            } else if (myArgs[0] == 'v') {//Update version
-                newVersion[1] = parseInt(newVersion[1]) + 1;
-                newVersion[2] = 0;
-            } else //Update revision
-                newVersion[2] = parseInt(newVersion[2]) + 1;
-            obj.version = newVersion[0] + "." + newVersion[1] + "." + newVersion[2];            
-            fs.writeFile(file_path_2, JSON.stringify(obj), 'utf8', () => {
-                console.log("Updated version: " + obj.version);
-            });
-        }
-    });
 
+        // Build the new version string
+        const newVersion = `${major}.${minor}.${patch}`;
+        packageObj.version = newVersion;
+
+        // Write the updated object back to package.json, preserving formatting
+        await fs.writeFile(packageJsonPath, JSON.stringify(packageObj, null, 2), 'utf8');
+        
+        // Print the new version to the console for the shell script to capture
+        console.log(newVersion);
+
+    } catch (err) {
+        // If an error occurs, log it to the error console and exit the process
+        console.error("Error updating version:", err);
+        process.exit(1); // Exit with an error code to stop the shell script
+    }
 }
 
-
-
+// Call the main function
+updateVersion();
