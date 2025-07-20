@@ -4,6 +4,20 @@ Create a Git commit with a simple command and manage the repository version.
 
 [![Laguna](https://laguna.com.ar/img/label.png)](https://www.laguna.com.ar/)
 
+## Quick Install
+
+You can add this tool to your project by running the following command in your terminal. It will download the necessary scripts.
+
+```sh
+mkdir -p version && curl -o autocommit.sh https://raw.githubusercontent.com/arielivandiaz/auto-commit/main/autocommit.sh && curl -o version/updateVersion.js https://raw.githubusercontent.com/arielivandiaz/auto-commit/main/version/updateVersion.js
+```
+
+After downloading, you need to give the script execution permissions:
+
+```sh
+chmod +x autocommit.sh
+```
+
 ## Version File
 
 The version number is sourced and updated from:
@@ -61,6 +75,7 @@ sh autocommit.sh mv develop
 ## Requirements
 
 *   [Node.js](https://nodejs.org/) and npm
+*   A `package.json` file with a `version` key in your project root.
 
 **Author**
 
