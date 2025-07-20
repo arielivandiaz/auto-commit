@@ -2,7 +2,6 @@
 
 Create a Git commit with a simple command and manage the repository version.
 
-[![Laguna](https://laguna.com.ar/img/label.png)](https://www.laguna.com.ar/)
 
 ## Quick Install
 
