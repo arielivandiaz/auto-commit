@@ -1,6 +1,11 @@
 // https://github.com/arielivandiaz/auto-commit
-const fs = require('fs').promises;
-const path = require('path');
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Replicate __dirname functionality in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Safely constructs the path to package.json
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
